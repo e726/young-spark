@@ -2,6 +2,7 @@ package com.young.datacheck.tools
 
 import java.io.InputStream
 import java.io.OutputStream
+
 import com.thoughtworks.xstream.XStream
 import com.young.datacheck.config.AuditColumn
 import com.young.datacheck.config.AuditInfo
@@ -9,20 +10,18 @@ import com.young.datacheck.config.CheckColumn
 import com.young.datacheck.config.CheckFunction
 import com.young.datacheck.config.DataCheck
 import com.young.datacheck.config.TaskParam
+import java.lang.{Class=>JClass}
 
 /**
  * @author Administrator
  * 用来解析检核配置文件
  */
-object XStreamTool {
+class XStreamTool[A <: AnyRef](autodetectAnnotations:Boolean,classes:Array[Class[A]]) {
   val xstream = new XStream
-  xstream.autodetectAnnotations(true)
-  xstream.processAnnotations(classOf[DataCheck])
-  xstream.processAnnotations(classOf[TaskParam])
-  xstream.processAnnotations(classOf[CheckFunction])
-  xstream.processAnnotations(classOf[CheckColumn])
-  xstream.processAnnotations(classOf[AuditColumn])
-  xstream.processAnnotations(classOf[AuditInfo])
+  xstream.autodetectAnnotations(autodetectAnnotations)
+  for(clazz<-classes){
+    xstream.processAnnotations(clazz)
+  }
   /**
    * 将对象转换成xml字符串
    */

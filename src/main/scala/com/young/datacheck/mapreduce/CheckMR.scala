@@ -1,6 +1,5 @@
 package com.young.datacheck.mapreduce
 
-import scala.beans.BeanProperty
 import scala.util.Random
 
 import org.apache.commons.logging.LogFactory

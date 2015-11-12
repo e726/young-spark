@@ -1,12 +1,9 @@
 package com.young.datacheck.checker
 
-
-
 /**
  * @author Administrator
  */
-sealed trait CheckType
-
-case object RegexType extends CheckType
-
-case object StringType extends CheckType
+case class CheckType(className: String) extends Equals{
+  override def hashCode() = className.hashCode()
+  override def toString() = className
+}
